@@ -66,7 +66,7 @@ export const productDetail = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/product/${id}`, config);
+    const { data } = await axios.get(`/api/products/${id}`, config);
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
@@ -102,7 +102,7 @@ export const createProductReview =
       };
       console.log(productId, comment, rating);
       const { data } = await axios.post(
-        `/api/product/${productId}/reviews`,
+        `/api/products/${productId}/reviews`,
         { comment, rating, user },
         config
       );
@@ -146,7 +146,7 @@ export const addProduct =
         user = userInfo._id;
       }
       const { data } = await axios.post(
-        `/api/add-new-product`,
+        `/api/products`,
         { user, name, price, description, category },
         config
       );
@@ -185,7 +185,7 @@ export const editProduct =
         },
       };
       const { data } = await axios.put(
-        `/api/edit-product/${productId}`,
+        `/api/products/${productId}`,
         { productId, name, price, description, category },
         config
       );
@@ -221,10 +221,7 @@ export const deleteProduct = (productId) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.user.token}`,
       },
     };
-    const { data } = await axios.delete(
-      `/api/delete-product/${productId}`,
-      config
-    );
+    const { data } = await axios.delete(`/api/products/${productId}`, config);
     dispatch({
       type: PRODUCT_DELETE_SUCCESS,
       payload: data,
